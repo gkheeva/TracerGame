@@ -117,7 +117,7 @@ public class Trail {
 		}
 		}
 		while((newX == trail[1].getX() && newY == trail[1].getY()) ||
-				newX < 0 || newY < 0 || (newX + 20) >= width || (newY + 20) >= height);
+				newX < 20 || newY < 0 || (newX + 20) >= width || (newY + 20) >= height);
 		
 		return r + 36;
 		}

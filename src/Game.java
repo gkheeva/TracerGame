@@ -21,9 +21,9 @@ public class Game extends JPanel {
 	public Game(int width, int height) {
 		this.width = width;
 		this.height = height;
-		player = new Square(80, 20, Color.RED);
+		player = new Player(80, 20, Color.RED);
 		trail = new Trail(player.getX() - 60, this.width, this.height);
-		bar = new Sidebar();
+		bar = new Sidebar(height);
 		
 		
 		addKeyListener(new KeyListener() {
@@ -59,11 +59,11 @@ public class Game extends JPanel {
 
 	public void move() {
 		
-		//if(player.moved){
-		//	bar.raise();
-		//	player.moved = false;
-		//}
-		//bar.move();
+		if(player.moved){
+			bar.raise();
+		player.moved = false;
+		}
+		bar.move();
 
 	}
 
@@ -79,7 +79,7 @@ public class Game extends JPanel {
 
 		trail.paint(g2d);
 		player.paint(g2d);
-		//bar.paint(g2d);
+		bar.paint(g2d);
 
 	}
 

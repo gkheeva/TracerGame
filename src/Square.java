@@ -10,11 +10,13 @@ public class Square {
 	Color color;
 	int width = 20;
 	int height = 20;
+	public boolean moved;
 	
 	
 	public Square(int x, int y, Color color) {
 		this.x = x;
 		this.y = y;
+		moved = false;
 		this.color = color;
 	}
 	
@@ -26,15 +28,19 @@ public class Square {
 	public void move(KeyEvent e) {
 		if (e.getKeyCode() == KeyEvent.VK_LEFT){
 			x -= 20;
+			moved = true;
 		}
 		if (e.getKeyCode() == KeyEvent.VK_RIGHT){
 			x+= 20;
+			moved = true;
 		}
 		if (e.getKeyCode() == KeyEvent.VK_DOWN){
 			y+= 20;
+			moved = true;
 		}
 		if (e.getKeyCode() == KeyEvent.VK_UP){
 			y-= 20;
+			moved = true;
 		}
 	}
 	

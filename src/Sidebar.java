@@ -4,36 +4,36 @@ import java.awt.Graphics2D;
 
 public class Sidebar {
 	
-	int maxHeight = 10;
+	int maxHeight;
 	int minHeight = 0;
-	int height = 5;
+	int height;
 	
 	
-	public Sidebar(){
+	public Sidebar(int height){
+		maxHeight = height;
+		this.height = maxHeight / 2 + 20;
 	}
 	
 	public void move(){
-		raise();
-		raise();
+
 	}
 	
 	public void paint(Graphics2D g) {
 		g.setColor(Color.blue);
-		g.fillRect(0, 0, 20, 250);
+		g.fillRect(0, 0, 20, maxHeight);
 		g.setColor(Color.white);
-		g.fillRect(0, 0, 20, 250 - (20*height));
-		
+		g.fillRect(0, 0, 20, maxHeight - height);
 	}
 	
 	
 	public void lower() {
 		if (height > minHeight)
-			height--;
+			height-=5;
 	}
 	
 	public void raise() {
 		if (height < maxHeight)
-			height++;
+			height+=5;
 	}
 	
 }

@@ -3,7 +3,7 @@ import javax.swing.JFrame;
 
 public class GameController{
 	public static Game game;
-	private static int height = 100, width = 100;
+	private static int height = 140, width = 140;
 	public static JFrame frame;
 
 	
