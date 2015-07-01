@@ -67,6 +67,7 @@ public class Trail {
 
 	
 	public void move(int d) {
+		d-=36;
 			switch(d) {
 				case 1:
 					moveLeft();

@@ -1,5 +1,7 @@
 import java.awt.Color;
 import java.awt.Graphics2D;
+import java.awt.event.KeyEvent;
+import java.util.Vector;
 
 
 public class Square {
@@ -32,8 +34,19 @@ public class Square {
 		g.fillRect(x, y, 20, 20);
 	}
 	
-	public void move() {
-		
+	public void move(KeyEvent e) {
+		if (e.getKeyCode() == KeyEvent.VK_LEFT){
+			x -= 20;
+		}
+		if (e.getKeyCode() == KeyEvent.VK_RIGHT){
+			x+= 20;
+		}
+		if (e.getKeyCode() == KeyEvent.VK_DOWN){
+			y+= 20;
+		}
+		if (e.getKeyCode() == KeyEvent.VK_UP){
+			y-= 20;
+		}
 	}
 	
 	public int getX(){return x;}

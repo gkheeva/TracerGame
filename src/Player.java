@@ -9,7 +9,7 @@ public class Player extends Square {
 	
 	
 	public void move(){
-		super.move();
+		
 	}
 	
 

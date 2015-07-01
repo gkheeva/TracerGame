@@ -42,37 +42,21 @@ public class Game extends JPanel {
 				System.out.println("skdjfal");
 				if (!checkBounds(e.getKeyCode()))
 					return;
-				if (e.getKeyCode() == KeyEvent.VK_LEFT){
-					player.moved = true;
-					player.movedLeft = true;
-					player.x -= 20;
+				if (moveOnTrail(e)){
+					int d;
+					d = trail.generateDirection();
+					System.out.println(d);
+					trail.move(d);
 				}
-				if (e.getKeyCode() == KeyEvent.VK_RIGHT){
-					player.moved = true;
-					player.movedRight = true;
-					player.x+= 20;
-				}
-				if (e.getKeyCode() == KeyEvent.VK_DOWN){
-					player.moved = true;
-					player.movedDown = true;
-					player.y+= 20;
-				}
-				if (e.getKeyCode() == KeyEvent.VK_UP){
-					player.moved = true;
-					player.movedUp = true;
-					player.y-= 20;
-				}
+				
 			}
 		});
 		setFocusable(true);
 	}
-
+	
 
 	public void move() {
-		player.move();
-		int d;
-		if(checkBounds(d = trail.generateDirection()))
-		trail.move(d);
+		
 		if(player.moved){
 			bar.raise();
 			player.moved = false;
@@ -125,11 +109,29 @@ public class Game extends JPanel {
 		return true;
 	}
 	
-	public void stayOnTrail(){
-		player.canMoveRight = player.getX() + 20 == trail.trail[2].getX();
-		player.canMoveLeft  = player.getX() - 20 == trail.trail[2].getX();
-		player.canMoveUp = player.getY() + 20 == trail.trail[2].getY();
-		player.canMoveDown = player.getY() - 20 == trail.trail[2].getY();
-		
+	public boolean moveOnTrail(KeyEvent e){
+		switch(e.getKeyCode()){
+		case KeyEvent.VK_UP: //up
+			if(player.getY() - 20 == trail.trail[2].getY()){
+				player.move(e);
+			return true;
+			}
+		case KeyEvent.VK_DOWN: //down
+			if(player.getY() + 20 == trail.trail[2].getY()){
+				player.move(e);
+			return true;
+			}
+		case KeyEvent.VK_LEFT: //left
+			if(player.getX() - 20 == trail.trail[2].getX()){
+				player.move(e);
+			return true;
+			}
+		case KeyEvent.VK_RIGHT: //right
+			if(player.getX() + 20 == trail.trail[2].getX()){
+				player.move(e);
+			return true;
+			}
+		default: return false;
+		}
 	}
 }
