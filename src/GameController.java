@@ -3,17 +3,16 @@ import javax.swing.JFrame;
 
 public class GameController{
 	public static Game game;
-	private static int height = 250,
-				width = 250;
+	private static int height = 100, width = 100;
 	public static JFrame frame;
 
 	
 	public GameController(){
-	
+			//TODO
 	}
 	public static void main(String[] args) throws InterruptedException {
 		
-		game = new Game(width,height);
+		game = new Game(width, height);
 		frame = new JFrame("Tracer");
 		
 		frame.add(game);

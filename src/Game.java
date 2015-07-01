@@ -19,11 +19,12 @@ public class Game extends JPanel {
 	
 	
 	public Game(int width, int height) {
-		player = new Square(180, 100, Color.RED);
-		trail = new Trail(player.getX() - 60);
-		bar = new Sidebar();
 		this.width = width;
 		this.height = height;
+		player = new Square(80, 20, Color.RED);
+		trail = new Trail(player.getX() - 60, this.width, this.height);
+		bar = new Sidebar();
+		
 		
 		addKeyListener(new KeyListener() {
 			@Override
@@ -42,6 +43,7 @@ public class Game extends JPanel {
 					System.out.println("OUT OF BOUNDS TRIED");
 					return;
 				}
+				keepTrailInBounds();
 				if (moveOnTrail(e)){
 					int d;
 					d = trail.generateDirection();
@@ -77,16 +79,31 @@ public class Game extends JPanel {
 
 		trail.paint(g2d);
 		player.paint(g2d);
-		bar.paint(g2d);
+		//bar.paint(g2d);
 
 	}
-	/**
-	 * 
-	 * @param vector
-	 * @return
-	 */
-	public boolean checkBounds(int vector){
-		switch(vector){
+
+	
+	public void keepTrailInBounds(){
+		if (trail.trail[0].getX() + 20 > width)
+			trail.canMoveRight = false;
+		else trail.canMoveRight = true;
+		
+		if (trail.trail[0].getX() - 20 < 0)
+			trail.canMoveLeft = false;
+		else trail.canMoveLeft = true;
+		
+		if (trail.trail[0].getY() + 20 > height)
+			trail.canMoveDown = false;
+		else trail.canMoveDown = true;
+		
+		if (trail.trail[0].getY() + 20 < 0)
+			trail.canMoveUp = false;
+		else trail.canMoveUp = true;
+	}
+
+	public boolean checkBounds(int d){
+		switch(d){
 		case KeyEvent.VK_UP: //up
 			if(player.getY() - 20 < 0)
 				return false;

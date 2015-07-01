@@ -5,13 +5,20 @@ import java.awt.Graphics2D;
 public class Trail {
 
 	Square[] trail;
+	boolean canMoveRight = true;
+	boolean canMoveLeft = true;
+	boolean canMoveUp = true;
+	boolean canMoveDown = true;
+	
+	private int width, height;
 
-
-	public Trail(int initialXPosition) {
+	public Trail(int initialXPosition, int width, int height) {
 		trail = new Square[3];
-		trail[0] = new Square(initialXPosition, 100, Color.LIGHT_GRAY);
-		trail[1] = new Square(initialXPosition + 20, 100, Color.GRAY);
-		trail[2] = new Square(initialXPosition + 40, 100, Color.BLACK);
+		trail[0] = new Square(initialXPosition, 20, Color.LIGHT_GRAY);
+		trail[1] = new Square(initialXPosition + 20, 20, Color.GRAY);
+		trail[2] = new Square(initialXPosition + 40, 20, Color.BLACK);
+		this.width = width;
+		this.height = height;
 	}
 
 	//render each square in trail
@@ -22,23 +29,31 @@ public class Trail {
 	}
 
 	public void moveRight(){
-		moveRestOfTrail();
-		trail[0].x += 20;
+		
+			moveRestOfTrail();
+			trail[0].x += 20;
+		
 	}
 
 	public void moveLeft(){
-		moveRestOfTrail();
-		trail[0].x -= 20;
+	
+			moveRestOfTrail();
+			trail[0].x -= 20;
+		
 	}
 
 	public void moveUp(){
-		moveRestOfTrail();
-		trail[0].y-=20;
+		
+			moveRestOfTrail();
+			trail[0].y-=20;
+		
 	}
 
 	public void moveDown(){
-		moveRestOfTrail();
-		trail[0].y+=20;
+		
+			moveRestOfTrail();
+			trail[0].y+=20;
+		
 	}
 
 	public void moveRestOfTrail(){
@@ -79,6 +94,9 @@ public class Trail {
 		return r;
 	}
 	
+
+
+	
 	public int generateDirection(){
 		int newX, newY, r;
 		do{
@@ -98,7 +116,8 @@ public class Trail {
 					break;
 		}
 		}
-		while(newX == trail[1].getX() && newY == trail[1].getY());
+		while((newX == trail[1].getX() && newY == trail[1].getY()) ||
+				newX < 0 || newY < 0 || (newX + 20) >= width || (newY + 20) >= height);
 		
 		return r + 36;
 		}
