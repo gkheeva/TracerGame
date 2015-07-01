@@ -9,9 +9,9 @@ public class Trail {
 
 	public Trail(int initialXPosition) {
 		trail = new Square[3];
-		trail[0] = new Square(initialXPosition, 20, Color.LIGHT_GRAY);
-		trail[1] = new Square(initialXPosition + 20, 20, Color.GRAY);
-		trail[2] = new Square(initialXPosition + 40, 20, Color.BLACK);
+		trail[0] = new Square(initialXPosition, 100, Color.LIGHT_GRAY);
+		trail[1] = new Square(initialXPosition + 20, 100, Color.GRAY);
+		trail[2] = new Square(initialXPosition + 40, 100, Color.BLACK);
 	}
 
 	//render each square in trail
@@ -80,27 +80,27 @@ public class Trail {
 	}
 	
 	public int generateDirection(){
-		int r = randomNumber();
-		
-		int newX = trail[0].getX();
-		int newY = trail[0].getY();
-		
-		switch(r) {
-		case 1: newX-=20;
-				break;
-		case 2: newY-=20;
-				break;
-		case 3: newX+=20;
-				break;
-		case 4: newY+=20;
-				break;
+		int newX, newY, r;
+		do{
+			r = randomNumber();
+			
+			newX = trail[0].getX();
+			newY = trail[0].getY();
+			
+			switch(r) { 
+			case 1: newX-=20;
+					break;
+			case 2: newY-=20;
+					break;
+			case 3: newX+=20;
+					break;
+			case 4: newY+=20;
+					break;
 		}
-		
-		if (newX == trail[1].getX() && newY == trail[1].getY())
-			generateDirection();
+		}
+		while(newX == trail[1].getX() && newY == trail[1].getY());
 		
 		return r + 36;
-	}
-	
+		}
 	
 }

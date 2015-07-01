@@ -19,8 +19,8 @@ public class Game extends JPanel {
 	
 	
 	public Game(int width, int height) {
-		player = new Square(180, 20, Color.RED);
-		trail = new Trail(120);
+		player = new Square(180, 100, Color.RED);
+		trail = new Trail(player.getX() - 60);
 		bar = new Sidebar();
 		this.width = width;
 		this.height = height;
@@ -77,7 +77,7 @@ public class Game extends JPanel {
 
 		trail.paint(g2d);
 		player.paint(g2d);
-		//bar.paint(g2d);
+		bar.paint(g2d);
 
 	}
 	/**
