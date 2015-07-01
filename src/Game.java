@@ -14,7 +14,6 @@ public class Game extends JPanel {
 	Square player;
 	Trail trail;
 	Sidebar bar; 
-	InputHandler inputHandler;
 
 	private int width, height;
 	
@@ -23,7 +22,6 @@ public class Game extends JPanel {
 		player = new Square(180, 20, Color.RED);
 		trail = new Trail(120);
 		bar = new Sidebar();
-		inputHandler = new InputHandler();
 		this.width = width;
 		this.height = height;
 		
@@ -40,8 +38,10 @@ public class Game extends JPanel {
 			@Override
 			public void keyPressed(KeyEvent e) {
 				System.out.println("skdjfal");
-				if (!checkBounds(e.getKeyCode()))
+				if (!checkBounds(e.getKeyCode())){
+					System.out.println("OUT OF BOUNDS TRIED");
 					return;
+				}
 				if (moveOnTrail(e)){
 					int d;
 					d = trail.generateDirection();
@@ -57,11 +57,11 @@ public class Game extends JPanel {
 
 	public void move() {
 		
-		if(player.moved){
-			bar.raise();
-			player.moved = false;
-		}
-		bar.move();
+		//if(player.moved){
+		//	bar.raise();
+		//	player.moved = false;
+		//}
+		//bar.move();
 
 	}
 
@@ -116,22 +116,26 @@ public class Game extends JPanel {
 				player.move(e);
 			return true;
 			}
+			break;
 		case KeyEvent.VK_DOWN: //down
-			if(player.getY() + 20 == trail.trail[2].getY()){
+			if((player.getY() + 20) == trail.trail[2].getY()){
 				player.move(e);
 			return true;
 			}
+			break;
 		case KeyEvent.VK_LEFT: //left
 			if(player.getX() - 20 == trail.trail[2].getX()){
 				player.move(e);
 			return true;
 			}
+			break;
 		case KeyEvent.VK_RIGHT: //right
 			if(player.getX() + 20 == trail.trail[2].getX()){
 				player.move(e);
 			return true;
 			}
-		default: return false;
+			break;
 		}
+		return false;
 	}
 }

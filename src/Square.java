@@ -11,17 +11,6 @@ public class Square {
 	int width = 20;
 	int height = 20;
 	
-	boolean canMoveRight = true; 
-	boolean canMoveLeft = true; 
-	boolean canMoveUp = true; 
-	boolean canMoveDown = true; 
-	
-	
-	boolean moved = false;
-	boolean movedRight = false;
-	boolean movedLeft = false;
-	boolean movedUp = false;
-	boolean movedDown = false;
 	
 	public Square(int x, int y, Color color) {
 		this.x = x;
