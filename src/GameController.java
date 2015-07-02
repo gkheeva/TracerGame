@@ -3,17 +3,19 @@ import javax.swing.JFrame;
 
 public class GameController{
 	public static Game game;
-	private static int height = 140, width = 140;
+	private static int height = 240, width = 240;
 	public static JFrame frame;
 
 	
 	public GameController(){
 			//TODO
 	}
-	public static void main(String[] args) throws InterruptedException {
+	public static void main(String[] args) {
 		
 		game = new Game(width, height);
 		frame = new JFrame("Tracer");
+		
+		//LowerBarTask lowerBarTask = new LowerBarTask();
 		
 		frame.add(game);
 		
@@ -24,8 +26,9 @@ public class GameController{
 		while (true) {
 			game.move();
 			game.repaint();
-			Thread.sleep(5);
+			
+			}
 		}
 		
-	}
+	
 }

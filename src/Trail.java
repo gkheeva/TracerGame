@@ -14,9 +14,9 @@ public class Trail {
 
 	public Trail(int initialXPosition, int width, int height) {
 		trail = new Square[3];
-		trail[0] = new Square(initialXPosition, 20, Color.LIGHT_GRAY);
-		trail[1] = new Square(initialXPosition + 20, 20, Color.GRAY);
-		trail[2] = new Square(initialXPosition + 40, 20, Color.BLACK);
+		trail[0] = new Square(initialXPosition, 80, Color.LIGHT_GRAY);
+		trail[1] = new Square(initialXPosition + 20, 80, Color.GRAY);
+		trail[2] = new Square(initialXPosition + 40, 80, Color.BLACK);
 		this.width = width;
 		this.height = height;
 	}

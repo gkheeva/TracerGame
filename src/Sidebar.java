@@ -1,5 +1,7 @@
 import java.awt.Color;
 import java.awt.Graphics2D;
+import java.util.Timer;
+import java.util.TimerTask;
 
 
 public class Sidebar {
@@ -7,11 +9,38 @@ public class Sidebar {
 	int maxHeight;
 	int minHeight = 0;
 	int height;
-	
+	long barDropRate;
+	Timer timer;
 	
 	public Sidebar(int height){
 		maxHeight = height;
 		this.height = maxHeight / 2 + 20;
+		this.barDropRate = 14;
+		timer = new Timer();
+		
+		timer.schedule(new LevelUpTask(), 0, 1000);
+	}
+	
+	
+	class LevelUpTask extends TimerTask{
+
+		@Override
+		public void run() {
+			barDropRate = (long) Math.ceil(barDropRate / 1.5);
+			timer.scheduleAtFixedRate(new LowerBarTask(), 500, barDropRate);
+		}
+		
+	}
+	class LowerBarTask extends TimerTask{
+
+		@Override
+		public void run() {
+			lower();
+		}
+	}
+	
+	public void levelUp(){
+		this.barDropRate = (long) Math.ceil(this.barDropRate/2);
 	}
 	
 	public void move(){
@@ -25,10 +54,10 @@ public class Sidebar {
 		g.fillRect(0, 0, 20, maxHeight - height);
 	}
 	
-	
 	public void lower() {
+		System.out.println("BAR LOWER");
 		if (height > minHeight)
-			height-=5;
+			height-=1;
 	}
 	
 	public void raise() {

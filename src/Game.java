@@ -4,6 +4,7 @@ import java.awt.Graphics2D;
 import java.awt.RenderingHints;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
+import java.util.Timer;
 
 import javax.swing.JPanel;
 
@@ -14,14 +15,16 @@ public class Game extends JPanel {
 	Square player;
 	Trail trail;
 	Sidebar bar; 
-
+	Graphics2D g2d;
+	boolean gameOver;
 	private int width, height;
 	
 	
 	public Game(int width, int height) {
+		this.gameOver = false;
 		this.width = width;
 		this.height = height;
-		player = new Player(80, 20, Color.RED);
+		player = new Player(120, 80, Color.RED);
 		trail = new Trail(player.getX() - 60, this.width, this.height);
 		bar = new Sidebar(height);
 		
@@ -64,22 +67,36 @@ public class Game extends JPanel {
 		player.moved = false;
 		}
 		bar.move();
+		gameOver();
 
+	}
+	
+	public void gameOver(){
+		if (bar.height <= 0){
+			gameOver = true;
+			g2d.setColor(Color.white);
+			g2d.drawRect(0, 0, width, height);
+			g2d.setColor(Color.black);
+			String gameOverText = "Game Over";
+			g2d.drawString(gameOverText, 10, 10);
+		}
 	}
 
 	
 
 	@Override
 	public void paint(Graphics g) {
-		super.paint(g);
-		Graphics2D g2d = (Graphics2D) g;
-		//g2d.setBackground(Color.white);      nOT WORKING
-		g2d.setRenderingHint(RenderingHints.KEY_ANTIALIASING, 
-				RenderingHints.VALUE_ANTIALIAS_ON);
-
-		trail.paint(g2d);
-		player.paint(g2d);
-		bar.paint(g2d);
+		if(!gameOver){
+			super.paint(g);
+			this.g2d = (Graphics2D) g;
+			//g2d.setBackground(Color.white);      nOT WORKING
+			g2d.setRenderingHint(RenderingHints.KEY_ANTIALIASING, 
+					RenderingHints.VALUE_ANTIALIAS_ON);
+	
+			trail.paint(g2d);
+			player.paint(g2d);
+			bar.paint(g2d);
+		}
 
 	}
 
