@@ -1,10 +1,12 @@
 import java.awt.Color;
+import java.awt.Font;
+import java.awt.FontMetrics;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.RenderingHints;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
-import java.util.Timer;
+import java.util.TimerTask;
 
 import javax.swing.JPanel;
 
@@ -18,16 +20,15 @@ public class Game extends JPanel {
 	Graphics2D g2d;
 	boolean gameOver;
 	private int width, height;
-	
+	FontMetrics fontMetrics;
 	
 	public Game(int width, int height) {
 		this.gameOver = false;
 		this.width = width;
 		this.height = height;
-		player = new Player(120, 80, Color.RED);
-		trail = new Trail(player.getX() - 60, this.width, this.height);
+		player = new Player(120, 200, Color.RED);
+		trail = new Trail(player.getX() - 60, player.getY(), this.width, this.height);
 		bar = new Sidebar(height);
-		
 		
 		addKeyListener(new KeyListener() {
 			@Override
@@ -36,24 +37,15 @@ public class Game extends JPanel {
 
 			@Override
 			public void keyReleased(KeyEvent e) {
-				///
 			}
 
 			@Override
 			public void keyPressed(KeyEvent e) {
-				System.out.println("skdjfal");
-				if (!checkBounds(e.getKeyCode())){
-					System.out.println("OUT OF BOUNDS TRIED");
-					return;
-				}
-				keepTrailInBounds();
 				if (moveOnTrail(e)){
 					int d;
 					d = trail.generateDirection();
-					System.out.println(d);
 					trail.move(d);
 				}
-				
 			}
 		});
 		setFocusable(true);
@@ -61,25 +53,20 @@ public class Game extends JPanel {
 	
 
 	public void move() {
-		
-		if(player.moved){
-			bar.raise();
-		player.moved = false;
+		if(!gameOver){
+			if(player.moved){
+				bar.raise();
+			player.moved = false;
+			}
+			bar.move();
+			gameOver();
 		}
-		bar.move();
-		gameOver();
-
 	}
 	
 	public void gameOver(){
 		if (bar.height <= 0){
 			gameOver = true;
-			g2d.setColor(Color.white);
-			g2d.drawRect(0, 0, width, height);
-			g2d.setColor(Color.black);
-			String gameOverText = "Game Over";
-			g2d.drawString(gameOverText, 10, 10);
-			
+			System.out.println("Game Over!!!!!!!!!!!!!!!!!");
 			//TODO!!!!!!!!!!!
 		}
 	}
@@ -91,58 +78,52 @@ public class Game extends JPanel {
 		if(!gameOver){
 			super.paint(g);
 			this.g2d = (Graphics2D) g;
-			//g2d.setBackground(Color.white);      nOT WORKING
 			g2d.setRenderingHint(RenderingHints.KEY_ANTIALIASING, 
 					RenderingHints.VALUE_ANTIALIAS_ON);
 	
 			trail.paint(g2d);
 			player.paint(g2d);
 			bar.paint(g2d);
+			
+			
+			if(bar.leveledUp){
+				g2d.setFont(new Font("Monospaced", Font.BOLD, 45));
+				g2d.setColor(Color.ORANGE);
+				g2d.drawString("Level: " + bar.level, 0, height/2 - 25);
+				bar.timer.schedule(new getRidOf(), 200);
+			}
+			
 		}
-
+		else{
+			Font font = new Font("Monospaced", Font.BOLD, 35);
+			fontMetrics = g.getFontMetrics(font);
+			String message = "Game Over";
+			int titleWidth = fontMetrics.stringWidth(message);
+			super.paint(g);
+			g.clearRect(0, 0, width, height);
+			g.setFont(font);
+			g.setColor(Color.WHITE);
+			g.fillRect(0, 0, width, height);
+			g.setColor(Color.BLACK);
+			g.drawString(message, width/2 - titleWidth / 2, height/2 - 10);
+			
+			message = "Reached: Level " + bar.level;
+			fontMetrics = g.getFontMetrics(font = new Font("Monospaced", Font.BOLD, 15));
+			g.setFont(font);
+			titleWidth = fontMetrics.stringWidth(message);
+			g.setColor(Color.RED);
+			g.drawString(message, width/2 - titleWidth / 2, height/2 + 10);
+			}
 	}
 
 	
-	public void keepTrailInBounds(){
-		if (trail.trail[0].getX() + 20 > width)
-			trail.canMoveRight = false;
-		else trail.canMoveRight = true;
-		
-		if (trail.trail[0].getX() - 20 < 0)
-			trail.canMoveLeft = false;
-		else trail.canMoveLeft = true;
-		
-		if (trail.trail[0].getY() + 20 > height)
-			trail.canMoveDown = false;
-		else trail.canMoveDown = true;
-		
-		if (trail.trail[0].getY() + 20 < 0)
-			trail.canMoveUp = false;
-		else trail.canMoveUp = true;
-	}
+	class getRidOf extends TimerTask {
 
-	public boolean checkBounds(int d){
-		switch(d){
-		case KeyEvent.VK_UP: //up
-			if(player.getY() - 20 < 0)
-				return false;
-			break;
-		case KeyEvent.VK_DOWN: //down
-			if(player.getY() + 20 > this.height)
-				return false;
-			break;
-		case KeyEvent.VK_LEFT: //left
-			if(player.getX() - 20 < 0 )
-				return false;
-			break;
-		case KeyEvent.VK_RIGHT: //right
-			if(player.getX() + 20 > this.width)
-				return false;
-			break;
-		default: //none of the above keys
-			return false;
+		@Override
+		public void run() {
+			bar.leveledUp = false;
 		}
-		return true;
+		
 	}
 	
 	public boolean moveOnTrail(KeyEvent e){

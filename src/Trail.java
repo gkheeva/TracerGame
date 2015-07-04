@@ -12,11 +12,11 @@ public class Trail {
 	
 	private int width, height;
 
-	public Trail(int initialXPosition, int width, int height) {
+	public Trail(int initialXPosition, int playerYPos, int width, int height) {
 		trail = new Square[3];
-		trail[0] = new Square(initialXPosition, 80, Color.LIGHT_GRAY);
-		trail[1] = new Square(initialXPosition + 20, 80, Color.GRAY);
-		trail[2] = new Square(initialXPosition + 40, 80, Color.BLACK);
+		trail[0] = new Square(initialXPosition, playerYPos, Color.LIGHT_GRAY);
+		trail[1] = new Square(initialXPosition + 20, playerYPos, Color.GRAY);
+		trail[2] = new Square(initialXPosition + 40, playerYPos, Color.BLACK);
 		this.width = width;
 		this.height = height;
 	}
@@ -117,7 +117,7 @@ public class Trail {
 		}
 		}
 		while((newX == trail[1].getX() && newY == trail[1].getY()) ||
-				newX < 20 || newY < 0 || (newX + 20) >= width || (newY + 20) >= height);
+				newX < 20 || newY < 0 || (newX) >= width - 20 || newY > height - 20);
 		
 		return r + 36;
 		}
