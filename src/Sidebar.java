@@ -19,7 +19,7 @@ public class Sidebar {
 		leveledUp = false;
 		maxHeight = height;
 		this.height = maxHeight / 2;
-		this.barDropRate = 200;
+		this.barDropRate = 150;
 		timer = new Timer();
 		timer.schedule(new LevelUpTask(), 0, 5000);
 	}
@@ -45,14 +45,9 @@ public class Sidebar {
 	}
 	
 	public void levelUp(){
-		if(height > 0 && level > 8){
-			barDropRate = (long) (barDropRate * 0.95);
+			barDropRate = (long) (barDropRate * 0.99);
 			this.level++;
 			leveledUp = true;
-		}
-		if(level >= 8){
-			barDropRate = (long) (barDropRate * 0.975);
-		}
 	}
 	
 	public void move(){
@@ -83,10 +78,10 @@ public class Sidebar {
 	public void raise() {
 		if (height < maxHeight)
 			height+=10;
-		else if (height == maxHeight){
-			levelUp();
-			resetBar();
-		}
+		//else if (height == maxHeight){
+		//	levelUp();
+		//	resetBar();
+		//}
 	}
 	
 	public void resetBar(){
