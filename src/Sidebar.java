@@ -19,7 +19,7 @@ public class Sidebar {
 		leveledUp = false;
 		maxHeight = height;
 		this.height = maxHeight / 2;
-		this.barDropRate = 150;
+		this.barDropRate = 100;
 		timer = new Timer();
 		timer.schedule(new LevelUpTask(), 0, 5000);
 	}
@@ -31,7 +31,7 @@ public class Sidebar {
 		public void run() {
 			if(height > 0){
 				levelUp();
-				timer.scheduleAtFixedRate(new LowerBarTask(), 500, barDropRate);
+				timer.scheduleAtFixedRate(new LowerBarTask(), 0, barDropRate);
 			}
 		}
 		
@@ -45,7 +45,7 @@ public class Sidebar {
 	}
 	
 	public void levelUp(){
-			barDropRate = (long) (barDropRate * 0.99);
+			barDropRate = (long) (barDropRate * 0.995);
 			this.level++;
 			leveledUp = true;
 	}
@@ -71,7 +71,7 @@ public class Sidebar {
 		
 		if (height > minHeight){
 			height-=1;
-			System.out.println("BAR LOWERED");
+			//System.out.println("BAR LOWERED");
 		}
 	}
 	
