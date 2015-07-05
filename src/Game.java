@@ -23,6 +23,7 @@ public class Game extends JPanel {
 	FontMetrics fontMetrics;
 	
 	public Game(int width, int height) {
+		System.out.println("Start Game..");
 		this.gameOver = false;
 		this.width = width;
 		this.height = height;

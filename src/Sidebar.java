@@ -48,6 +48,7 @@ public class Sidebar {
 			barDropRate = (long) (barDropRate * 0.995);
 			this.level++;
 			leveledUp = true;
+			System.out.println("level up!");
 	}
 	
 	public void move(){
