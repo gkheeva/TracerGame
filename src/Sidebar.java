@@ -55,12 +55,14 @@ public class Sidebar {
 	}
 	
 	public void paint(Graphics2D g) {
-		if (height < maxHeight * 0.2)
-			g.setColor(Color.RED);
+		if (height < maxHeight * 0.25)
+			g.setColor(Color.decode("#FF4D00")); //below 25%
 		else if(height < maxHeight * 0.5)
-			g.setColor(Color.ORANGE);
+			g.setColor(Color.decode("#D1D12C")); //below 50%
+		else if(height < maxHeight * 0.8)
+			g.setColor(Color.decode("#84E26C")); //below 80%
 		else 
-			g.setColor(Color.GREEN);	
+			g.setColor(Color.decode("#50C633")); //above 80%
 		
 		g.fillRect(0, 0, 20, maxHeight);
 		g.setColor(Color.white);

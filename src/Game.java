@@ -87,9 +87,11 @@ public class Game extends JPanel {
 			
 			
 			if(bar.leveledUp){
-				g2d.setFont(new Font("Monospaced", Font.BOLD, 45));
+				g2d.setFont(new Font("Monospaced", Font.BOLD, 50));
 				g2d.setColor(Color.ORANGE);
-				g2d.drawString("Level: " + bar.level, 0, height/2 - 25);
+				g2d.drawString("Level", width/2 - 75, height/3);
+				g2d.setFont(new Font("Monospaced", Font.BOLD, 140));
+				g2d.drawString("" + bar.level, width/2 - 40, height/2 + 70);
 				bar.timer.schedule(new getRidOf(), 200);
 			}
 			

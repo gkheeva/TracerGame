@@ -12,7 +12,7 @@ public class GameController{
 	public GameController() {
 			//TODO
 	}
-	public static void main(String[] args) {
+	public static void main(String[] args) throws InterruptedException {
 		
 		game = new Game(width, height);
 		frame = new JFrame("Tracer");
@@ -27,7 +27,7 @@ public class GameController{
 		while (true) {
 			game.move();
 			game.repaint();
+			Thread.sleep(10);
 			}
 	}
-	
 }
