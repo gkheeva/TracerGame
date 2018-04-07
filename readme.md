@@ -12,4 +12,4 @@ The player has to follow the tiles on the board while racing against time. Every
 
 ### Preview:
 
-![alt text](https://github.com/gkheeva/TracerGame/img/game.png)
+![alt text](https://github.com/gkheeva/TracerGame/blob/master/img/game.png)
