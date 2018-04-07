@@ -1,6 +1,6 @@
-#Tracer Game
+# Tracer Game
 
-This is a game developed with Java.
+This is a 2D game developed with Java.
 
 ### How to run:
 - Git clone
