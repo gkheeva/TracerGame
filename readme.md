@@ -2,7 +2,7 @@
 This is a 2D game developed with Java.
 
 ### How to run:
-- Git clone
+- Git clone this project
 - Navigate to src folder in terminal or cmd
 - run command 'javac GameController.java'
 - run command 'java GameController'
